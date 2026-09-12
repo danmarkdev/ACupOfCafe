@@ -8,10 +8,20 @@ body {
   color: #362a20;
   font-family: 'Plus Jakarta Sans', sans-serif;
   overflow-x: hidden;
-  cursor: none;
+  /* CHANGED: back to the normal system arrow cursor — the custom ring-and-dot
+     was reading as "blurry" (it's a semi-transparent ring that lags/eases
+     behind the pointer, which looks soft/out-of-focus compared to a crisp
+     system arrow). */
+  cursor: auto;
 }
 
-/* CUSTOM CURSOR — ring-and-dot, matching the hero accent's look */
+/* CUSTOM CURSOR — disabled per request; script.js still tracks mouse position
+   but these are hidden so nothing renders. */
+.custom-cursor-dot,
+.custom-cursor-ring {
+  display: none !important;
+}
+
 .custom-cursor-dot {
   width: 6px; height: 6px;
   background-color: #9c5630;
@@ -89,6 +99,10 @@ body {
   color: #9c8264;
   padding-bottom: 6px;
   transition: color 0.3s ease;
+  /* ADDED: these are <a> tags, so browsers add their own underline by default.
+     That was showing up doubled with the custom ::after underline below —
+     this removes the native one so only the animated one appears. */
+  text-decoration: none;
 }
 
 .nav-item::after {
@@ -180,29 +194,35 @@ p:last-of-type { margin-bottom: 1.4rem; }
 /* HERO */
 .hero {
   padding: 140px 8vw 80px;
-  align-items: flex-start;
-  justify-content: flex-start;
+  /* CHANGED: centered the hero text block, both horizontally and vertically
+     within the section, per request. */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   background: url('cafe background.jpg') center center / cover no-repeat;
 }
 
 .hero-content {
   max-width: 620px;
-  padding-top: 20px;
+  padding-top: 0;
+  margin: 0 auto;
 }
 
 .hero-sub {
-  font-size: 0.95rem; font-weight: 500;
-  /* CHANGED: lightened from a dark olive (#6e7458) to a warm cream so it's
-     legible against the coffee photo instead of blending into the dark cup. */
-  color: #f3ead9;
+  font-size: 0.85rem;
+  font-weight: 500;
+  /* CHANGED: uppercase + wide letter-spacing to match the reference's spaced-out
+     "E S T A B L I S H E D   2 0 2 6" look, plus pure white per request. */
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: #ffffff;
   display: block; margin-bottom: 1.4rem;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55), 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 .hero-content h1 {
-  /* CHANGED: lightened from the near-black default text color to cream,
-     since dark brown text was disappearing into the dark parts of the photo. */
-  color: #f8f2e6;
+  /* CHANGED: pure white per request (was a slightly warm off-white). */
+  color: #ffffff;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55), 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
