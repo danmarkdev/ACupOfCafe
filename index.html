@@ -17,8 +17,6 @@
 
 <body>
 
-  <div class="custom-cursor-dot"></div>
-  <div class="custom-cursor-outline"></div>
   <div class="progress-bar"></div>
 
   <header class="main-navbar">
@@ -31,18 +29,6 @@
     </nav>
 
     <div class="nav-right">
-      <!-- ADDED: style.css already defines .cart-toggle / .cart-badge, but no button
-           existed to attach them to. This is the missing piece a script.js would hook
-           into (e.g. cartToggle.addEventListener('click', openDrawer)). -->
-      <button class="cart-toggle" id="cartToggle" aria-label="Open cart">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="9" cy="21" r="1"></circle>
-          <circle cx="20" cy="21" r="1"></circle>
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-        </svg>
-        <span class="cart-badge is-hidden" id="cartBadge">0</span>
-      </button>
-
       <button class="menu-toggle" aria-label="Toggle Menu">
         <span class="hamburger"></span>
       </button>
@@ -70,13 +56,7 @@
           <img src="https://images.unsplash.com/photo-1512568400610-62da28bc8a13?q=80&w=800" alt="Overhead view of latte art in a bed of roasted coffee beans">
           <div class="story-text">
             <h3>Quiet Hour</h3>
-            <p class="story-sub">01. OAT MILK &amp; VANILLA BEAN LATTE</p>
-            <!-- ADDED: story-footer / story-price / add-btn were styled in style.css
-                 but never used — this is what actually lets someone add an item -->
-            <div class="story-footer">
-              <span class="story-price">₱160.00</span>
-              <button class="add-btn" data-name="Quiet Hour" data-price="160.00">Add</button>
-            </div>
+            <p class="story-sub">01. OAT MILK &amp; VANILLA BEAN LATTE — ₱160.00</p>
           </div>
         </article>
 
@@ -84,11 +64,7 @@
           <img src="https://images.unsplash.com/photo-1633161835691-fb4f5dfd0d46?q=80&w=800" alt="A cup of dark roast coffee on a wooden table with nothing else in frame">
           <div class="story-text">
             <h3>Ember Roast</h3>
-            <p class="story-sub">02. SMOKED DARK ROAST</p>
-            <div class="story-footer">
-              <span class="story-price">₱150.50</span>
-              <button class="add-btn" data-name="Ember Roast" data-price="150.50">Add</button>
-            </div>
+            <p class="story-sub">02. SMOKED DARK ROAST — ₱150.50</p>
           </div>
         </article>
 
@@ -96,11 +72,7 @@
           <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=800" alt="Overhead view of iced coffee in a clear glass">
           <div class="story-text">
             <h3>Cold Comfort</h3>
-            <p class="story-sub">03. ICED CARAMEL MOCHA</p>
-            <div class="story-footer">
-              <span class="story-price">₱140.00</span>
-              <button class="add-btn" data-name="Cold Comfort" data-price="140.00">Add</button>
-            </div>
+            <p class="story-sub">03. ICED CARAMEL MOCHA — ₱140.00</p>
           </div>
         </article>
       </div>
@@ -137,29 +109,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ADDED: cart overlay + drawer markup, matching the .cart-overlay / .cart-drawer
-       rules already sitting unused in style.css. Left in an empty state — a
-       script.js would populate #cartItems, toggle .is-open, and swap in
-       .order-confirm on checkout. -->
-  <div class="cart-overlay" id="cartOverlay"></div>
-  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
-    <div class="cart-drawer-header">
-      <h3>Your Order</h3>
-      <button class="cart-close" id="cartClose" aria-label="Close cart">&times;</button>
-    </div>
-    <div class="cart-items" id="cartItems">
-      <p class="cart-empty">Your cup is empty for now.</p>
-    </div>
-    <div class="cart-footer">
-      <div class="cart-subtotal-row">
-        <span>Subtotal</span>
-        <span id="cartSubtotal">₱0.00</span>
-      </div>
-      <button class="place-order-btn" id="placeOrderBtn" disabled>Place Order</button>
-      <p class="cart-note">Pickup only, at the counter.</p>
-    </div>
-  </aside>
 
   <script src="script.js"></script>
 </body>
