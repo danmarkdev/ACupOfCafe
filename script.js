@@ -5,6 +5,37 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* ---------- Custom cursor (ring + dot follow the mouse) ---------- */
+  const cursorDot = document.querySelector('.custom-cursor-dot');
+  const cursorRing = document.querySelector('.custom-cursor-ring');
+  const isTouchDevice = window.matchMedia('(max-width: 768px)').matches;
+
+  if (cursorDot && cursorRing && !isTouchDevice) {
+    // The ring trails slightly behind the dot for a softer feel.
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+    });
+
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.18;
+      ringY += (mouseY - ringY) * 0.18;
+      cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    // Grow the ring over anything clickable
+    document.querySelectorAll('a, button').forEach((el) => {
+      el.addEventListener('mouseenter', () => cursorRing.classList.add('hover-active'));
+      el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover-active'));
+    });
+  }
+
   /* ---------- Scroll progress bar ---------- */
   const progressBar = document.querySelector('.progress-bar');
 
