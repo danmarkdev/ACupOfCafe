@@ -1,7 +1,7 @@
 /* A Cup of Cafe — page interactions
    Covers: scroll progress bar, mobile menu open/close, and highlighting the
-   current section's nav link while scrolling. No custom cursor here on
-   purpose — the site uses the normal system cursor. */
+   current section's nav link while scrolling, plus the custom cursor and
+   copy-protection behavior. */
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -94,22 +94,22 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach((section) => observer.observe(section));
   }
 
-   /* ---------- Copy protection ----------
+  /* ---------- Copy protection ----------
      Blocks the common ways people casually lift content: right-click menu,
      drag-selecting text, the copy shortcut, and view-source/save/devtools
      keyboard shortcuts. This is a mild deterrent only — anyone who really
      wants the content can still get it from page source or dev tools, so
      don't rely on this to protect anything sensitive. */
- 
+
   // Disable the right-click context menu
   document.addEventListener('contextmenu', (e) => e.preventDefault());
- 
+
   // Disable copying selected text
   document.addEventListener('copy', (e) => e.preventDefault());
- 
+
   // Disable dragging images out of the page
   document.addEventListener('dragstart', (e) => e.preventDefault());
- 
+
   // Block common "view/save/copy source" keyboard shortcuts
   document.addEventListener('keydown', (e) => {
     const key = e.key.toLowerCase();
@@ -118,8 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const blockedDevTools =
       key === 'f12' ||
       ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i', 'j', 'c'].includes(key));
- 
+
     if (blockedCombo || blockedDevTools) {
       e.preventDefault();
     }
   });
+
+}); // <-- ADDED: this closing bracket for the outer DOMContentLoaded listener
+    // was missing, which caused "Uncaught SyntaxError: Unexpected end of
+    // input" — that error stopped the ENTIRE script from running, which is
+    // why the cursor never moved AND the hamburger menu never responded.
