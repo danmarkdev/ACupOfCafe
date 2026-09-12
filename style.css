@@ -13,6 +13,14 @@ body {
      behind the pointer, which looks soft/out-of-focus compared to a crisp
      system arrow). */
   cursor: auto;
+  /* ADDED: extra layer of copy protection on top of the JS 'copy' event
+     block in script.js — this stops text from being *selected* in the
+     first place, which also blocks copy methods that don't fire a
+     standard 'copy' event (some long-press flows, some extensions). */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* CUSTOM CURSOR — disabled per request; script.js still tracks mouse position
@@ -80,13 +88,6 @@ body {
 }
 
 .nav-right {
-  /* CHANGED: hidden on desktop. This div only holds the mobile hamburger,
-     but as an empty flex child it was still taking a "slot" in the navbar's
-     space-between layout — pulling the nav links toward the middle instead
-     of the right edge like the reference. Hiding it leaves just two flex
-     children (brand + links), which pushes the links flush right. Restored
-     to visible in the mobile media query below since the hamburger needs it
-     there. */
   display: none;
   align-items: center;
   gap: 1.6rem;
@@ -96,9 +97,6 @@ body {
 
 .nav-item {
   position: relative;
-  /* CHANGED: uppercase + letter-spacing + smaller, muted color to match the
-     reference nav ("BEST SELLERS   THE PROLOGUE   VISIT") instead of the
-     plain title-case links this had before. */
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.14em;
@@ -110,9 +108,6 @@ body {
   color: #6b4a30;
   padding-bottom: 6px;
   transition: color 0.3s ease;
-  /* ADDED: these are <a> tags, so browsers add their own underline by default.
-     That was showing up doubled with the custom ::after underline below —
-     this removes the native one so only the animated one appears. */
   text-decoration: none;
 }
 
@@ -191,9 +186,6 @@ h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
 
 .italic-serif {
   font-style: italic;
-  /* CHANGED: lightened from a dark brown (#9c5630) to a clearer caramel tone,
-     and gave it its own stronger shadow — the darker brown was blending into
-     the busy coffee photo behind it. */
   color: #d98f4f;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.45);
   position: relative;
@@ -209,8 +201,6 @@ p:last-of-type { margin-bottom: 1.4rem; }
 /* HERO */
 .hero {
   padding: 140px 8vw 80px;
-  /* CHANGED: centered the hero text block, both horizontally and vertically
-     within the section, per request. */
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -226,8 +216,6 @@ p:last-of-type { margin-bottom: 1.4rem; }
 .hero-sub {
   font-size: 0.85rem;
   font-weight: 500;
-  /* CHANGED: uppercase + wide letter-spacing to match the reference's spaced-out
-     "E S T A B L I S H E D   2 0 2 6" look, plus pure white per request. */
   text-transform: uppercase;
   letter-spacing: 0.3em;
   color: #ffffff;
@@ -236,13 +224,9 @@ p:last-of-type { margin-bottom: 1.4rem; }
 }
 
 .hero-content h1 {
-  /* CHANGED: pure white per request (was a slightly warm off-white). */
   color: #ffffff;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55), 0 1px 4px rgba(0, 0, 0, 0.4);
 }
-
-/* .hero-tagline rule removed — the "Small-batch coffee for people who
-   linger." paragraph was deleted from index.html per request. */
 
 .hero-cta {
   display: inline-block;
@@ -269,8 +253,6 @@ p:last-of-type { margin-bottom: 1.4rem; }
 }
 .eyebrow.light { color: #9fae8c; }
 
-/* CHANGED: extra breathing room between "OUR BEST SELLERS" and the photo
-   grid below it, to match the reference spacing. */
 #menu .eyebrow {
   margin-bottom: 3rem;
 }
@@ -311,7 +293,6 @@ p:last-of-type { margin-bottom: 1.4rem; }
 
 .story-sub {
   font-size: 0.95rem;
-  /* CHANGED: from a muted brown-grey to solid black per request. */
   color: #000000;
   opacity: 1;
   margin-bottom: 0.9rem;
