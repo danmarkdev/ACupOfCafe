@@ -9,7 +9,7 @@ if (window.innerWidth > 768) {
     gsap.to(cursorDot, { x: posX, y: posY, duration: 0 });
     gsap.to(cursorOutline, { x: posX, y: posY, duration: 0.15, ease: "power2.out" });
   });
-  const interactiveTargets = document.querySelectorAll(".nav-item, .nav-brand, .story-item, .story-item img, .author-credit, .hero-cta");
+  const interactiveTargets = document.querySelectorAll(".nav-item, .nav-brand, .story-item, .story-item img, .author-credit");
   interactiveTargets.forEach((target) => {
     target.addEventListener("mouseenter", () => cursorOutline.classList.add("hover-active"));
     target.addEventListener("mouseleave", () => cursorOutline.classList.remove("hover-active"));
@@ -45,8 +45,7 @@ const heroTimeline = gsap.timeline();
 heroTimeline
   .from(".hero-sub", { opacity: 0, y: -20, duration: 1, ease: "power2.out" })
   .from(".hero h1", { opacity: 0, y: 40, duration: 1.2, ease: "power3.out" }, "-=0.6")
-  .from(".hero-tagline", { opacity: 0, y: 20, duration: 1, ease: "power2.out" }, "-=0.5")
-  .from(".hero-cta", { opacity: 0, y: 20, duration: 1, ease: "power2.out" }, "-=0.5");
+  .from(".hero-tagline", { opacity: 0, y: 20, duration: 1, ease: "power2.out" }, "-=0.5");
 // SCROLL REVEALS
 gsap.utils.toArray(".panel:not(.hero)").forEach((panel) => {
   const elements = panel.querySelectorAll(".eyebrow, h2, h3, p, .story-grid, .about-image-wrap, .epilogue-left, .epilogue-right, .follow-label, .author-credit");
