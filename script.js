@@ -94,4 +94,32 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach((section) => observer.observe(section));
   }
 
-});
+   /* ---------- Copy protection ----------
+     Blocks the common ways people casually lift content: right-click menu,
+     drag-selecting text, the copy shortcut, and view-source/save/devtools
+     keyboard shortcuts. This is a mild deterrent only — anyone who really
+     wants the content can still get it from page source or dev tools, so
+     don't rely on this to protect anything sensitive. */
+ 
+  // Disable the right-click context menu
+  document.addEventListener('contextmenu', (e) => e.preventDefault());
+ 
+  // Disable copying selected text
+  document.addEventListener('copy', (e) => e.preventDefault());
+ 
+  // Disable dragging images out of the page
+  document.addEventListener('dragstart', (e) => e.preventDefault());
+ 
+  // Block common "view/save/copy source" keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    const key = e.key.toLowerCase();
+    const blockedCombo =
+      (e.ctrlKey || e.metaKey) && ['c', 'u', 's', 'p'].includes(key);
+    const blockedDevTools =
+      key === 'f12' ||
+      ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i', 'j', 'c'].includes(key));
+ 
+    if (blockedCombo || blockedDevTools) {
+      e.preventDefault();
+    }
+  });
