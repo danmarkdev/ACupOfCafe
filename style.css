@@ -103,7 +103,11 @@ body {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #9c8264;
+  /* CHANGED: darkened from #9c8264 (too light/low-contrast against the
+     translucent navbar, reading as "blurry") to a solid, clearly readable
+     brown that still sits a step lighter than the hover/active color
+     (#9c5630) so the hover state still reads as a distinct "pop". */
+  color: #6b4a30;
   padding-bottom: 6px;
   transition: color 0.3s ease;
   /* ADDED: these are <a> tags, so browsers add their own underline by default.
