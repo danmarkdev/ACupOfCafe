@@ -80,7 +80,14 @@ body {
 }
 
 .nav-right {
-  display: flex;
+  /* CHANGED: hidden on desktop. This div only holds the mobile hamburger,
+     but as an empty flex child it was still taking a "slot" in the navbar's
+     space-between layout — pulling the nav links toward the middle instead
+     of the right edge like the reference. Hiding it leaves just two flex
+     children (brand + links), which pushes the links flush right. Restored
+     to visible in the mobile media query below since the hamburger needs it
+     there. */
+  display: none;
   align-items: center;
   gap: 1.6rem;
 }
@@ -413,7 +420,7 @@ p:last-of-type { margin-bottom: 1.4rem; }
 
   .hero-content { padding-top: 0; }
 
-  .nav-right { gap: 1rem; }
+  .nav-right { display: flex; gap: 1rem; }
 
   .nav-links {
     position: fixed; top: 0; right: -100%;
