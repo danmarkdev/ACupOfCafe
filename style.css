@@ -186,6 +186,23 @@ p:last-of-type { margin-bottom: 1.4rem; }
   margin-bottom: 0;
 }
 
+.hero-cta {
+  display: inline-block;
+  margin-top: 2.2rem;
+  padding: 13px 28px;
+  border: 1px solid #362a20;
+  color: #362a20;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.hero-cta:hover {
+  background: #362a20;
+  border-color: #362a20;
+  color: #efe7d6;
+}
+
 /* EYEBROW LABEL */
 .eyebrow {
   display: block;
