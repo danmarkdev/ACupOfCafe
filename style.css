@@ -192,24 +192,22 @@ p:last-of-type { margin-bottom: 1.4rem; }
 
 .hero-sub {
   font-size: 0.95rem; font-weight: 500;
-  color: #6e7458; display: block; margin-bottom: 1.4rem;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.25);
+  /* CHANGED: lightened from a dark olive (#6e7458) to a warm cream so it's
+     legible against the coffee photo instead of blending into the dark cup. */
+  color: #f3ead9;
+  display: block; margin-bottom: 1.4rem;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55), 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 .hero-content h1 {
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.25);
+  /* CHANGED: lightened from the near-black default text color to cream,
+     since dark brown text was disappearing into the dark parts of the photo. */
+  color: #f8f2e6;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55), 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
-.hero-tagline {
-  font-size: 1.05rem;
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  color: #5c4836;
-  opacity: 0.85;
-  margin-top: 1.4rem;
-  margin-bottom: 0;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.25);
-}
+/* .hero-tagline rule removed — the "Small-batch coffee for people who
+   linger." paragraph was deleted from index.html per request. */
 
 .hero-cta {
   display: inline-block;
