@@ -8,28 +8,22 @@ body {
   color: #362a20;
   font-family: 'Plus Jakarta Sans', sans-serif;
   overflow-x: hidden;
-  /* CHANGED: back to the normal system arrow cursor — the custom ring-and-dot
-     was reading as "blurry" (it's a semi-transparent ring that lags/eases
-     behind the pointer, which looks soft/out-of-focus compared to a crisp
-     system arrow). */
-  cursor: auto;
-  /* ADDED: extra layer of copy protection on top of the JS 'copy' event
-     block in script.js — this stops text from being *selected* in the
-     first place, which also blocks copy methods that don't fire a
-     standard 'copy' event (some long-press flows, some extensions). */
+  /* CHANGED: custom ring+dot cursor is back on for desktop, so the native
+     system arrow is hidden here (cursor: none) — otherwise both the system
+     arrow AND the custom ring/dot would show at once. Mobile still gets the
+     normal system cursor (see media query below), since a trailing ring
+     doesn't make sense on touch. */
+  cursor: none;
+  /* Copy-protection: stops text from being selected in the first place,
+     backing up the JS 'copy' event block in script.js. */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
 
-/* CUSTOM CURSOR — disabled per request; script.js still tracks mouse position
-   but these are hidden so nothing renders. */
-.custom-cursor-dot,
-.custom-cursor-ring {
-  display: none !important;
-}
-
+/* CUSTOM CURSOR — re-enabled per request; ring trails the dot slightly for
+   a softer feel (handled in script.js). */
 .custom-cursor-dot {
   width: 6px; height: 6px;
   background-color: #9c5630;
@@ -101,10 +95,6 @@ body {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  /* CHANGED: darkened from #9c8264 (too light/low-contrast against the
-     translucent navbar, reading as "blurry") to a solid, clearly readable
-     brown that still sits a step lighter than the hover/active color
-     (#9c5630) so the hover state still reads as a distinct "pop". */
   color: #6b4a30;
   padding-bottom: 6px;
   transition: color 0.3s ease;
@@ -403,6 +393,9 @@ p:last-of-type { margin-bottom: 1.4rem; }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
+  /* CHANGED: mobile still gets the plain system cursor — a trailing ring
+     cursor doesn't apply on touch devices, so it stays hidden here and the
+     JS also skips attaching the mousemove/ring logic below 768px. */
   body { cursor: auto; }
   .custom-cursor-dot, .custom-cursor-ring { display: none !important; }
 
