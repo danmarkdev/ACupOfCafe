@@ -191,7 +191,13 @@ h1 { font-size: 4.6rem; line-height: 1.1; letter-spacing: -0.01em; }
 h2 { font-size: 2.5rem; line-height: 1.25; margin-bottom: 1.5rem; }
 h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
 
-.italic-serif { font-style: italic; color: #9c5630; }
+.italic-serif {
+  font-style: italic;
+  color: #9c5630;
+  /* ADDED: anchor point so the accent ring below can be positioned against this word only */
+  position: relative;
+  display: inline-block;
+}
 
 p {
   font-size: 1.05rem; line-height: 1.85;
@@ -217,6 +223,38 @@ p:last-of-type { margin-bottom: 1.4rem; }
 .hero-sub {
   font-size: 0.95rem; font-weight: 500;
   color: #6e7458; display: block; margin-bottom: 1.4rem;
+}
+
+/* ADDED: small ring-and-dot accent next to the italicized hero word, echoing the
+   reference site's habit of marking a key word with a graphic mark rather than
+   another color/weight change. One quiet, non-repeating reveal on page load only. */
+.hero-ring {
+  position: absolute;
+  top: 45%;
+  right: -46px;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(156, 86, 48, 0.45);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  animation: heroRingReveal 1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+}
+
+.hero-ring::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 5px; height: 5px;
+  background: #9c5630;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes heroRingReveal {
+  from { opacity: 0; transform: translateY(-50%) scale(0.5); }
+  to   { opacity: 1; transform: translateY(-50%) scale(1); }
 }
 
 .hero-tagline {
@@ -654,6 +692,10 @@ p:last-of-type { margin-bottom: 1.4rem; }
   .menu-toggle { display: flex; }
 
   .hero-content { padding-top: 0; }
+
+  /* ADDED: the accent ring has no room to breathe on narrow screens, so it's hidden
+     the same way .ornament-dot already is above */
+  .hero-ring { display: none; }
 
   .nav-right { gap: 1rem; }
 
