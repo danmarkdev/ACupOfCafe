@@ -56,7 +56,7 @@ body {
 .main-navbar {
   position: fixed; top: 0; left: 0;
   width: 100%; height: 90px;
-  background: rgba(239, 231, 214, 0.95);
+  background: rgba(239, 231, 214, 0.82);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   display: flex; justify-content: space-between; align-items: center;
@@ -180,11 +180,13 @@ p:last-of-type { margin-bottom: 1.4rem; }
   padding: 140px 8vw 80px;
   align-items: flex-start;
   justify-content: flex-start;
-  /* CHANGED: lightened the overlay gradient (was 0.9 / 0.5 / 0.1) so coffee.jpg
-     shows through clearly instead of looking washed out/faded. */
+  /* CHANGED: lightened the overlay gradient (was 0.9 / 0.5 / 0.1) so cafe.jpg
+     shows through clearly instead of looking washed out/faded. Also nudged the
+     vertical focal point (center 35%) so the "cheers" toast sits more centered
+     in the crop instead of drifting toward the left edge. */
   background:
     linear-gradient(100deg, rgba(239,231,214,0.55) 0%, rgba(239,231,214,0.25) 42%, rgba(239,231,214,0.05) 70%),
-    url('cafe.jpg') center/cover no-repeat;
+    url('cafe.jpg') center 35% / cover no-repeat;
 }
 
 .hero-content {
