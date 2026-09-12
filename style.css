@@ -180,11 +180,12 @@ p:last-of-type { margin-bottom: 1.4rem; }
   padding: 140px 8vw 80px;
   align-items: flex-start;
   justify-content: flex-start;
-  /* CHANGED: same photo as before (not swapped) — only lightened the cream
-     overlay so the image reads sharp and clear instead of hazy/washed out. */
+  /* CHANGED: now using your own coffee.jpg (place it in the same folder as
+     index.html) instead of an Unsplash link. Same lightened overlay as before
+     so the headline stays readable. */
   background:
     linear-gradient(100deg, rgba(239,231,214,0.9) 0%, rgba(239,231,214,0.5) 42%, rgba(239,231,214,0.1) 70%),
-    url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+    url('coffee.jpg') center/cover no-repeat;
 }
 
 .hero-content {
