@@ -8,9 +8,40 @@ body {
   color: #362a20;
   font-family: 'Plus Jakarta Sans', sans-serif;
   overflow-x: hidden;
-  /* CHANGED: was `cursor: none;` with a JS-driven custom cursor. Since there was
-     no script.js actually moving it, the real cursor was just invisible. Reverted
-     to the normal system cursor on desktop, as requested. */
+  /* CHANGED: back to a custom cursor, using the ring-and-dot look from the hero
+     accent — this time it's actually driven by script.js, so it moves with the
+     mouse instead of sitting invisible. */
+  cursor: none;
+}
+
+/* CUSTOM CURSOR — ring-and-dot, matching the hero accent's look */
+.custom-cursor-dot {
+  width: 6px; height: 6px;
+  background-color: #9c5630;
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 10002;
+}
+
+.custom-cursor-ring {
+  width: 34px; height: 34px;
+  border: 1px solid rgba(156, 86, 48, 0.45);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 10001;
+  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.custom-cursor-ring.hover-active {
+  width: 50px; height: 50px;
+  border-color: #9c5630;
+  background: rgba(156, 86, 48, 0.1);
 }
 
 /* PROGRESS BAR */
@@ -149,10 +180,10 @@ p:last-of-type { margin-bottom: 1.4rem; }
   padding: 140px 8vw 80px;
   align-items: flex-start;
   justify-content: flex-start;
-  /* CHANGED: swapped again for a shot that's unmistakably coffee itself (cup +
-     beans) rather than a cafe interior, per request. */
+  /* CHANGED: same photo as before (not swapped) — only lightened the cream
+     overlay so the image reads sharp and clear instead of hazy/washed out. */
   background:
-    linear-gradient(100deg, rgba(239,231,214,0.95) 0%, rgba(239,231,214,0.8) 45%, rgba(239,231,214,0.4) 75%),
+    linear-gradient(100deg, rgba(239,231,214,0.9) 0%, rgba(239,231,214,0.5) 42%, rgba(239,231,214,0.1) 70%),
     url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
 }
 
@@ -164,38 +195,6 @@ p:last-of-type { margin-bottom: 1.4rem; }
 .hero-sub {
   font-size: 0.95rem; font-weight: 500;
   color: #6e7458; display: block; margin-bottom: 1.4rem;
-}
-
-/* ADDED: small ring-and-dot accent next to the italicized hero word, echoing the
-   reference site's habit of marking a key word with a graphic mark rather than
-   another color/weight change. One quiet, non-repeating reveal on page load only. */
-.hero-ring {
-  position: absolute;
-  top: 45%;
-  right: -46px;
-  transform: translateY(-50%);
-  width: 34px;
-  height: 34px;
-  border: 1px solid rgba(156, 86, 48, 0.45);
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0;
-  animation: heroRingReveal 1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
-}
-
-.hero-ring::after {
-  content: '';
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 5px; height: 5px;
-  background: #9c5630;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-}
-
-@keyframes heroRingReveal {
-  from { opacity: 0; transform: translateY(-50%) scale(0.5); }
-  to   { opacity: 1; transform: translateY(-50%) scale(1); }
 }
 
 .hero-tagline {
@@ -377,13 +376,12 @@ p:last-of-type { margin-bottom: 1.4rem; }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
+  body { cursor: auto; }
+  .custom-cursor-dot, .custom-cursor-ring { display: none !important; }
+
   .menu-toggle { display: flex; }
 
   .hero-content { padding-top: 0; }
-
-  /* ADDED: the accent ring has no room to breathe on narrow screens, so it's hidden
-     the same way .ornament-dot already is above */
-  .hero-ring { display: none; }
 
   .nav-right { gap: 1rem; }
 
