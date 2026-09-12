@@ -187,7 +187,11 @@ h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
 
 .italic-serif {
   font-style: italic;
-  color: #9c5630;
+  /* CHANGED: lightened from a dark brown (#9c5630) to a clearer caramel tone,
+     and gave it its own stronger shadow — the darker brown was blending into
+     the busy coffee photo behind it. */
+  color: #d98f4f;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.45);
   position: relative;
   display: inline-block;
 }
@@ -303,7 +307,8 @@ p:last-of-type { margin-bottom: 1.4rem; }
 
 .story-sub {
   font-size: 0.95rem;
-  color: #6e5d4d;
+  /* CHANGED: from a muted brown-grey to solid black per request. */
+  color: #000000;
   opacity: 1;
   margin-bottom: 0.9rem;
   font-weight: 300;
