@@ -10,7 +10,11 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- CHANGED: Fraunces wasn't actually being loaded before (only Playfair Display
+       + Plus Jakarta Sans were linked), even though the CSS calls for 'Fraunces'
+       everywhere. That's why the brand name and headings looked like a generic
+       fallback serif instead of the intended display font. -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -42,8 +46,10 @@
   <section class="panel hero">
     <div class="hero-content">
       <span class="hero-sub">Established 2026</span>
-      <h1>Brewed with intention,<br>poured with
-        <span class="italic-serif">warmth</span>
+      <!-- CHANGED: shortened heading from "Brewed with intention, poured with
+           warmth" to a leaner "Every cup" line per request. -->
+      <h1>Every cup has a
+        <span class="italic-serif">story</span>
       </h1>
       <p class="hero-tagline">Small-batch coffee for people who linger.</p>
     </div>
@@ -54,9 +60,12 @@
     <div class="section-inner">
       <span class="eyebrow">Our Best Sellers</span>
 
+      <!-- CHANGED: swapped all three menu photos for plain coffee/latte close-ups
+           (wood table, dark roast overhead, marble-table latte) instead of the
+           beans-and-hands shots, to match the reference look. -->
       <div class="story-grid">
         <article class="story-item">
-          <img src="https://images.unsplash.com/photo-1512568400610-62da28bc8a13?q=80&w=800" alt="Overhead view of latte art in a bed of roasted coffee beans">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800" alt="Latte with leaf art on a saucer, set on a wooden table">
           <div class="story-text">
             <h3>Quiet Hour</h3>
             <p class="story-sub">01. OAT MILK &amp; VANILLA BEAN LATTE — ₱160.00</p>
@@ -64,7 +73,7 @@
         </article>
 
         <article class="story-item">
-          <img src="https://images.unsplash.com/photo-1633161835691-fb4f5dfd0d46?q=80&w=800" alt="A cup of dark roast coffee on a wooden table with nothing else in frame">
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=800" alt="Overhead view of black coffee in a white cup">
           <div class="story-text">
             <h3>Ember Roast</h3>
             <p class="story-sub">02. SMOKED DARK ROAST — ₱150.50</p>
@@ -72,7 +81,7 @@
         </article>
 
         <article class="story-item">
-          <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=800" alt="Overhead view of iced coffee in a clear glass">
+          <img src="https://images.unsplash.com/photo-1521302080334-4bebac2763a6?q=80&w=800" alt="Latte art in a glass cup on a marble table with sunlight">
           <div class="story-text">
             <h3>Cold Comfort</h3>
             <p class="story-sub">03. ICED CARAMEL MOCHA — ₱140.00</p>
