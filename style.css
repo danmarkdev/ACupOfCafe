@@ -180,13 +180,11 @@ p:last-of-type { margin-bottom: 1.4rem; }
   padding: 140px 8vw 80px;
   align-items: flex-start;
   justify-content: flex-start;
-  /* CHANGED: lightened the overlay gradient (was 0.9 / 0.5 / 0.1) so cafe.jpg
-     shows through clearly instead of looking washed out/faded. Also nudged the
-     vertical focal point (center 35%) so the "cheers" toast sits more centered
-     in the crop instead of drifting toward the left edge. */
- background:
-    linear-gradient(100deg, rgba(239,231,214,0.35) 0%, rgba(239,231,214,0.15) 42%, rgba(239,231,214,0.03) 70%),
-    url('cafe background.jpg') center center / cover no-repeat;
+  /* CHANGED: removed the cream gradient overlay entirely — that tint was what
+     made cafe background.jpg look faded/blurred. The image now shows at full
+     clarity, centered. Text readability is handled below via text-shadow
+     instead of a wash over the photo. */
+  background: url('cafe background.jpg') center center / cover no-repeat;
 }
 
 .hero-content {
@@ -197,6 +195,13 @@ p:last-of-type { margin-bottom: 1.4rem; }
 .hero-sub {
   font-size: 0.95rem; font-weight: 500;
   color: #6e7458; display: block; margin-bottom: 1.4rem;
+  /* ADDED: keep the label legible now that there's no overlay behind it */
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.hero-content h1 {
+  /* ADDED: same reasoning — headline needs contrast against the photo directly */
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 .hero-tagline {
@@ -207,6 +212,8 @@ p:last-of-type { margin-bottom: 1.4rem; }
   opacity: 0.85;
   margin-top: 1.4rem;
   margin-bottom: 0;
+  /* ADDED: same reasoning as above */
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 .hero-cta {
