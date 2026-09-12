@@ -180,11 +180,10 @@ p:last-of-type { margin-bottom: 1.4rem; }
   padding: 140px 8vw 80px;
   align-items: flex-start;
   justify-content: flex-start;
-  /* CHANGED: now using your own coffee.jpg (place it in the same folder as
-     index.html) instead of an Unsplash link. Same lightened overlay as before
-     so the headline stays readable. */
+  /* CHANGED: lightened the overlay gradient (was 0.9 / 0.5 / 0.1) so coffee.jpg
+     shows through clearly instead of looking washed out/faded. */
   background:
-    linear-gradient(100deg, rgba(239,231,214,0.9) 0%, rgba(239,231,214,0.5) 42%, rgba(239,231,214,0.1) 70%),
+    linear-gradient(100deg, rgba(239,231,214,0.55) 0%, rgba(239,231,214,0.25) 42%, rgba(239,231,214,0.05) 70%),
     url('coffee.jpg') center/cover no-repeat;
 }
 
