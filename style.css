@@ -56,7 +56,7 @@ body {
 .main-navbar {
   position: fixed; top: 0; left: 0;
   width: 100%; height: 90px;
-  background: rgba(239, 231, 214, 0.82);
+  background: rgba(239, 231, 214, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   display: flex; justify-content: space-between; align-items: center;
