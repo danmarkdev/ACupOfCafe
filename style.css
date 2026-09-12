@@ -8,9 +8,6 @@ body {
   color: #362a20;
   font-family: 'Plus Jakarta Sans', sans-serif;
   overflow-x: hidden;
-  /* CHANGED: back to a custom cursor, using the ring-and-dot look from the hero
-     accent — this time it's actually driven by script.js, so it moves with the
-     mouse instead of sitting invisible. */
   cursor: none;
 }
 
@@ -78,13 +75,19 @@ body {
   gap: 1.6rem;
 }
 
-.nav-links { display: flex; gap: 2.2rem; }
+.nav-links { display: flex; gap: 2.6rem; }
 
 .nav-item {
   position: relative;
-  font-size: 0.92rem; font-weight: 500;
-  color: #362a20;
-  padding-bottom: 4px;
+  /* CHANGED: uppercase + letter-spacing + smaller, muted color to match the
+     reference nav ("BEST SELLERS   THE PROLOGUE   VISIT") instead of the
+     plain title-case links this had before. */
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9c8264;
+  padding-bottom: 6px;
   transition: color 0.3s ease;
 }
 
@@ -164,7 +167,6 @@ h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
 .italic-serif {
   font-style: italic;
   color: #9c5630;
-  /* ADDED: anchor point so the accent ring below can be positioned against this word only */
   position: relative;
   display: inline-block;
 }
@@ -180,10 +182,6 @@ p:last-of-type { margin-bottom: 1.4rem; }
   padding: 140px 8vw 80px;
   align-items: flex-start;
   justify-content: flex-start;
-  /* CHANGED: removed the cream gradient overlay entirely — that tint was what
-     made cafe background.jpg look faded/blurred. The image now shows at full
-     clarity, centered. Text readability is handled below via text-shadow
-     instead of a wash over the photo. */
   background: url('cafe background.jpg') center center / cover no-repeat;
 }
 
@@ -195,12 +193,10 @@ p:last-of-type { margin-bottom: 1.4rem; }
 .hero-sub {
   font-size: 0.95rem; font-weight: 500;
   color: #6e7458; display: block; margin-bottom: 1.4rem;
-  /* ADDED: keep the label legible now that there's no overlay behind it */
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 .hero-content h1 {
-  /* ADDED: same reasoning — headline needs contrast against the photo directly */
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
@@ -212,7 +208,6 @@ p:last-of-type { margin-bottom: 1.4rem; }
   opacity: 0.85;
   margin-top: 1.4rem;
   margin-bottom: 0;
-  /* ADDED: same reasoning as above */
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
@@ -236,8 +231,16 @@ p:last-of-type { margin-bottom: 1.4rem; }
   display: block;
   font-size: 1rem; font-weight: 500;
   color: #6e7458; margin-bottom: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 .eyebrow.light { color: #9fae8c; }
+
+/* CHANGED: extra breathing room between "OUR BEST SELLERS" and the photo
+   grid below it, to match the reference spacing. */
+#menu .eyebrow {
+  margin-bottom: 3rem;
+}
 
 .menu-lede {
   font-size: 0.98rem;
@@ -403,7 +406,7 @@ p:last-of-type { margin-bottom: 1.4rem; }
     transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   }
   .nav-links.is-open { right: 0; }
-  .nav-item { font-size: 1.2rem; }
+  .nav-item { font-size: 1rem; }
 
   h1 { font-size: 2.5rem; }
   h2 { font-size: 1.8rem; }
