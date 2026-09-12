@@ -1,704 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cup of Cafe — Order Online</title>
-<style>
-  :root{
-    --bg: #FFFFFF;
-    --panel-bg: #FAF6EF;
-    --ink: #2B2018;
-    --sub: #7A6A57;
-    --line: #E7DFD0;
-    --panel: #FFFFFF;
-    --brown: #5C3A21;
-    --brown-dark: #3E2513;
-    --tan: #E9DCC3;
-    --danger: #B4453A;
-    --radius: 6px;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background:var(--bg);
-    color:var(--ink);
-  }
-  header{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    padding:24px 5vw 18px;
-    border-bottom:1px solid var(--line);
-  }
-  header .brand h1{
-    font-size:1.55rem;
-    margin:0;
-    letter-spacing:0.5px;
-    font-weight:800;
-    text-transform:uppercase;
-  }
-  header .brand p{
-    margin:3px 0 0;
-    color:var(--sub);
-    font-size:0.85rem;
-  }
-  header .mode{
-    font-size:0.85rem;
-    color:var(--sub);
-    padding-top:4px;
-  }
-  .cart-toggle{
-    background:var(--brown-dark);
-    color:#fff;
-    border:none;
-    padding:9px 15px;
-    border-radius:var(--radius);
-    cursor:pointer;
-    font-size:0.85rem;
-  }
-  .cart-toggle:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
-    outline:2px solid var(--brown);
-    outline-offset:2px;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A Cup of Cafe</title>
 
-  .tabs{
-    display:flex;
-    gap:10px;
-    padding:18px 5vw 14px;
-    flex-wrap:wrap;
-    border-bottom:1px solid var(--line);
-  }
-  .tab-btn{
-    background:#fff;
-    border:1px solid var(--line);
-    color:var(--ink);
-    padding:9px 16px;
-    border-radius:var(--radius);
-    font-size:0.85rem;
-    cursor:pointer;
-  }
-  .tab-btn.active{
-    background:var(--brown-dark);
-    border-color:var(--brown-dark);
-    color:#fff;
-  }
+  <link rel="stylesheet" href="style.css"/>
 
-  main{
-    display:grid;
-    grid-template-columns: 1fr 340px;
-    gap:0;
-    max-width:1300px;
-    margin:0 auto;
-  }
-  .menu{ padding: 10px 5vw 60px 5vw; }
-  .category{ margin-top:34px; }
-  .category-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-    border-bottom:1px solid var(--line);
-    padding-bottom:10px;
-    margin-bottom:18px;
-  }
-  .category-head h2{
-    font-size:1rem;
-    letter-spacing:0.6px;
-    text-transform:uppercase;
-    font-weight:800;
-    margin:0;
-    color:var(--ink);
-  }
-  .category-head span{
-    font-size:0.82rem;
-    color:var(--sub);
-  }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
-  .card-grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap:22px;
-  }
-  .card{
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    overflow:hidden;
-    display:flex;
-    flex-direction:column;
-  }
-  .card-image{
-    width:100%;
-    height:160px;
-    display:block;
-  }
-  .card-image svg{ width:100%; height:100%; display:block; }
-  .card-body{
-    padding:14px 16px 16px;
-    display:flex;
-    flex-direction:column;
-    flex:1;
-  }
-  .card-title-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-    gap:8px;
-  }
-  .card-title-row h3{ margin:0; font-size:1rem; font-weight:700; color:var(--ink); font-family:'Georgia', serif; }
-  .card-price{
-    font-size:0.92rem;
-    color:var(--ink);
-    white-space:nowrap;
-    font-weight:700;
-  }
-  .card-desc{
-    margin:6px 0 0;
-    color:var(--sub);
-    font-size:0.83rem;
-    line-height:1.45;
-    flex:1;
-  }
-  .card-actions{ margin-top:12px; display:flex; gap:8px; }
-  .add-btn{
-    flex:1;
-    background:#fff;
-    border:1px solid var(--line);
-    color:var(--ink);
-    padding:8px 10px;
-    border-radius:5px;
-    cursor:pointer;
-    font-size:0.82rem;
-  }
-  .add-btn:hover{ background:var(--panel-bg); }
-  .buy-btn{
-    flex:1;
-    background:var(--brown-dark);
-    border:1px solid var(--brown-dark);
-    color:#fff;
-    padding:8px 10px;
-    border-radius:5px;
-    cursor:pointer;
-    font-size:0.82rem;
-  }
-  .buy-btn:hover{ background:var(--brown); }
-  .qty-controls{
-    flex:1;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:8px;
-    background:var(--panel-bg);
-    border-radius:5px;
-    padding:4px 8px;
-  }
-  .qty-controls button{
-    width:26px; height:26px;
-    border:1px solid var(--line);
-    background:#fff;
-    border-radius:50%;
-    cursor:pointer;
-    font-size:1rem;
-    line-height:1;
-  }
-  .qty-controls span{ font-weight:700; }
-
-  /* Cart panel */
-  aside.cart{
-    background:var(--panel-bg);
-    border-left:1px solid var(--line);
-    padding:26px 24px 40px;
-    position:sticky;
-    top:0;
-    align-self:start;
-    height:100vh;
-    overflow-y:auto;
-  }
-  .cart-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:10px;
-  }
-  .cart-head h2{
-    font-size:0.95rem;
-    letter-spacing:0.5px;
-    text-transform:uppercase;
-    font-weight:800;
-    margin:0;
-    color:var(--ink);
-  }
-  .cart-count{
-    background:#fff;
-    border:1px solid var(--line);
-    border-radius:50%;
-    width:26px; height:26px;
-    display:flex; align-items:center; justify-content:center;
-    font-size:0.82rem;
-    font-weight:700;
-  }
-  .cart-line{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    padding:12px 0;
-    border-bottom:1px solid var(--line);
-    font-size:0.88rem;
-  }
-  .cart-line .name{ font-weight:700; }
-  .cart-line .meta{ color:var(--sub); font-size:0.78rem; }
-  .remove-link{
-    background:none;border:none;color:var(--danger);
-    font-size:0.76rem; cursor:pointer; padding:0; text-decoration:underline;
-  }
-  .empty-note{ color:var(--sub); font-size:0.87rem; margin-top:40px; text-align:center; line-height:1.6; }
-  .totals{
-    margin-top:18px;
-    font-size:0.88rem;
-    border-top:1px solid var(--line);
-    padding-top:14px;
-  }
-  .totals-row{ display:flex; justify-content:space-between; padding:5px 0; }
-  .totals-row.grand{ font-weight:800; font-size:1.05rem; border-top:1px solid var(--line); margin-top:6px; padding-top:12px; }
-
-  fieldset{ border:none; padding:0; margin:18px 0 0; }
-  label{ display:block; font-size:0.72rem; letter-spacing:0.4px; text-transform:uppercase; color:var(--sub); margin:12px 0 4px; }
-  input[type=text], input[type=tel], textarea{
-    width:100%;
-    padding:9px 10px;
-    border:1px solid var(--line);
-    border-radius:5px;
-    font-size:0.88rem;
-    font-family:'Helvetica Neue', Arial, sans-serif;
-    background:#fff;
-  }
-  textarea{ resize:vertical; min-height:52px; }
-  .radio-group{ display:flex; gap:14px; font-size:0.85rem; }
-  .radio-group label{ display:flex; align-items:center; gap:6px; margin:0; color:var(--ink); text-transform:none; }
-
-  .place-order{
-    width:100%;
-    margin-top:16px;
-    padding:12px;
-    background:var(--brown-dark);
-    color:#fff;
-    border:none;
-    border-radius:5px;
-    font-size:0.9rem;
-    cursor:pointer;
-  }
-  .place-order:disabled{ background:#D8CDB8; color:#8a8070; cursor:not-allowed; }
-  .error{ color:var(--danger); font-size:0.78rem; margin-top:6px; }
-
-  .confirmation{
-    text-align:center;
-    padding:30px 10px;
-  }
-  .confirmation .stamp{ font-size:2rem; margin-bottom:6px; }
-  .confirmation h3{ margin:0 0 6px; font-family:'Georgia', serif; }
-  .confirmation p{ color:var(--sub); font-size:0.87rem; margin:4px 0; }
-  .new-order-btn{
-    margin-top:16px;
-    background:transparent;
-    border:1px solid var(--ink);
-    color:var(--ink);
-    padding:9px 18px;
-    border-radius:5px;
-    cursor:pointer;
-  }
-
-  @media (max-width: 860px){
-    main{ grid-template-columns: 1fr; }
-    aside.cart{
-      position:fixed;
-      top:0; right:0;
-      width:min(90vw, 380px);
-      height:100vh;
-      transform:translateX(100%);
-      transition:transform 0.25s ease;
-      box-shadow:-6px 0 24px rgba(0,0,0,0.15);
-      z-index:20;
-    }
-    aside.cart.open{ transform:translateX(0); }
-    .cart-toggle{ display:inline-block; }
-    .backdrop{
-      display:none;
-      position:fixed; inset:0; background:rgba(0,0,0,0.3); z-index:15;
-    }
-    .backdrop.show{ display:block; }
-  }
-  @media (min-width: 861px){
-    .cart-toggle{ display:none; }
-  }
-</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
+
 <body>
 
-<header>
-  <div class="brand">
-    <h1>Cup of Cafe</h1>
-    <p>Neighborhood Coffee & Pastry Counter</p>
-  </div>
-  <div style="display:flex; align-items:center; gap:14px;">
-    <span class="mode">Counter Pickup Ordering</span>
-    <button class="cart-toggle" id="cartToggleBtn">Cart (<span id="toggleCount">0</span>)</button>
-  </div>
-</header>
+  <div class="custom-cursor-dot"></div>
+  <div class="custom-cursor-outline"></div>
+  <div class="progress-bar"></div>
 
-<div class="tabs" id="tabs">
-  <button class="tab-btn active" data-tab="all">All Items</button>
-  <button class="tab-btn" data-tab="coffee">Coffee</button>
-  <button class="tab-btn" data-tab="pastries">Pastries & Breads</button>
-  <button class="tab-btn" data-tab="hot">Hot Brews</button>
-  <button class="tab-btn" data-tab="iced">Iced & Cold</button>
-  <button class="tab-btn" data-tab="bites">Light Bites</button>
-</div>
+  <header class="main-navbar">
+    <div class="nav-brand">A Cup of Cafe.</div>
 
-<main>
-  <section class="menu" id="menu"></section>
+    <button class="menu-toggle" aria-label="Toggle Menu">
+      <span class="hamburger"></span>
+    </button>
 
-  <div class="backdrop" id="backdrop"></div>
-  <aside class="cart" id="cartPanel">
-    <div class="cart-head">
-      <h2>Your Order</h2>
-      <div class="cart-count" id="toggleCount2">0</div>
+    <nav class="nav-links">
+      <a href="#menu" class="nav-item">Best Sellers</a>
+      <a href="#about" class="nav-item">The Prologue</a>
+      <a href="#visit" class="nav-item">Visit</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="panel hero">
+    <div class="hero-content">
+      <span class="hero-sub">Established 2026</span>
+      <h1>Brewed with intention,<br>poured with <span class="italic-serif">warmth</span></h1>
+      <p class="hero-tagline">Small-batch coffee for people who linger.</p>
     </div>
-    <div id="cartLines"></div>
-    <div id="emptyNote" class="empty-note">Your tray is empty.<br>Choose an item to start.</div>
+  </section>
 
-    <div class="totals" id="totalsBlock" style="display:none;">
-      <div class="totals-row"><span>Subtotal</span><span id="subtotalVal">₱0.00</span></div>
-      <div class="totals-row"><span>Tax (5%)</span><span id="taxVal">₱0.00</span></div>
-      <div class="totals-row grand"><span>Total Amount</span><span id="totalVal">₱0.00</span></div>
-    </div>
+  <!-- MENU -->
+  <section id="menu" class="panel light-panel">
+    <div class="section-inner">
+      <span class="eyebrow">Our Best Sellers</span>
 
-    <form id="orderForm">
-      <fieldset>
-        <label for="custName">Customer Name (for callout)</label>
-        <input type="text" id="custName" placeholder="Guest Customer">
-
-        <label for="custPhone">Phone Number</label>
-        <input type="tel" id="custPhone" placeholder="For pickup text alert">
-
-        <label>Order Type</label>
-        <div class="radio-group">
-          <label><input type="radio" name="orderType" value="Pickup" checked> Pickup</label>
-          <label><input type="radio" name="orderType" value="Dine-in"> Dine-in</label>
-        </div>
-
-        <label for="notes">Notes (optional)</label>
-        <textarea id="notes" placeholder="Oat milk, extra hot, allergies, etc."></textarea>
-      </fieldset>
-      <div id="formError" class="error" style="display:none;"></div>
-      <button type="submit" class="place-order" id="placeOrderBtn" disabled>Place Order</button>
-    </form>
-
-    <div class="confirmation" id="confirmation" style="display:none;">
-      <div class="stamp">☕</div>
-      <h3>Order placed</h3>
-      <p id="confNumber"></p>
-      <p id="confDetails"></p>
-      <p>We'll text you when it's ready.</p>
-      <button class="new-order-btn" id="newOrderBtn">Start a new order</button>
-    </div>
-  </aside>
-</main>
-
-<script>
-const MENU = [
-  {
-    key: "coffee-selection",
-    category: "Coffee Selection",
-    subtitle: "Artisanal Espresso & Handcrafted Brews",
-    items: [
-      { id:"c1", name:"Drip Coffee", desc:"House blend, brewed fresh all day.", price:95, icon:"mug", tags:["coffee","hot"] },
-      { id:"c2", name:"Cappuccino", desc:"Double espresso, steamed milk, deep foam.", price:150, icon:"cappuccino", tags:["coffee","hot"] },
-      { id:"c3", name:"Caffè Latte", desc:"Espresso with steamed milk, light foam.", price:160, icon:"latte", tags:["coffee","hot"] },
-      { id:"c4", name:"Cold Brew", desc:"Steeped 18 hours, served over ice.", price:165, icon:"coldbrew", tags:["coffee","iced"] },
-      { id:"c5", name:"Espresso Shot", desc:"Single or double, straight up.", price:120, icon:"espresso", tags:["coffee","hot"] },
-      { id:"t1", name:"Matcha Latte", desc:"Ceremonial-grade matcha, steamed milk.", price:175, icon:"matcha", tags:["hot"] },
-      { id:"t2", name:"Chai Latte", desc:"House-spiced chai concentrate, steamed milk.", price:155, icon:"chai", tags:["hot"] },
-      { id:"t3", name:"Loose Leaf Tea", desc:"Ask about today's selection.", price:110, icon:"tea", tags:["hot"] }
-    ]
-  },
-  {
-    key: "pastries-breads",
-    category: "Pastries & Breads",
-    subtitle: "Fresh Oven Bakes & Artisanal Treats",
-    items: [
-      { id:"p1", name:"Almond Croissant", desc:"Laminated dough, almond cream filling.", price:140, icon:"croissant", tags:["pastries"] },
-      { id:"p2", name:"Cinnamon Roll", desc:"Baked in-house, cream cheese glaze.", price:150, icon:"cinnamonroll", tags:["pastries"] },
-      { id:"p3", name:"Blueberry Muffin", desc:"Made with wild blueberries.", price:120, icon:"muffin", tags:["pastries"] },
-      { id:"p4", name:"Plain Bagel & Cream Cheese", desc:"Toasted, whipped cream cheese.", price:115, icon:"bagel", tags:["pastries"] }
-    ]
-  },
-  {
-    key: "light-bites",
-    category: "Light Bites",
-    subtitle: "Simple, Hearty, Made Fresh",
-    items: [
-      { id:"l1", name:"Avocado Toast", desc:"Sourdough, smashed avocado, chili flake.", price:220, icon:"avocadotoast", tags:["bites"] },
-      { id:"l2", name:"Breakfast Sandwich", desc:"Egg, cheddar, choice of bacon on brioche.", price:195, icon:"sandwich", tags:["bites"] },
-      { id:"l3", name:"Overnight Oats", desc:"Oats, chia, seasonal fruit, honey.", price:165, icon:"oats", tags:["bites"] }
-    ]
-  }
-];
-
-const ICONS = {
-  mug: `<defs><radialGradient id="g-mug-bg" cx="50%" cy="35%" r="75%"><stop offset="0%" stop-color="#4A4038"/><stop offset="100%" stop-color="#241E1A"/></radialGradient><radialGradient id="g-mug-coffee" cx="45%" cy="40%" r="60%"><stop offset="0%" stop-color="#8A5A34"/><stop offset="70%" stop-color="#4A2E18"/><stop offset="100%" stop-color="#2E1C0E"/></radialGradient></defs><rect width="400" height="300" fill="url(#g-mug-bg)"/><ellipse cx="200" cy="160" rx="110" ry="95" fill="#F4EFE7"/><ellipse cx="200" cy="158" rx="88" ry="76" fill="url(#g-mug-coffee)"/><ellipse cx="175" cy="130" rx="30" ry="14" fill="#B98653" opacity="0.55"/>`,
-  cappuccino: `<defs><radialGradient id="g-capp-bg" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#F3E3C8"/><stop offset="100%" stop-color="#E2C79B"/></radialGradient><radialGradient id="g-capp-foam" cx="45%" cy="40%" r="65%"><stop offset="0%" stop-color="#F7EFDD"/><stop offset="100%" stop-color="#DCC79C"/></radialGradient></defs><rect width="400" height="300" fill="url(#g-capp-bg)"/><ellipse cx="200" cy="160" rx="115" ry="98" fill="#FFFFFF"/><ellipse cx="200" cy="158" rx="95" ry="80" fill="url(#g-capp-foam)"/><g fill="#8A5A2B" opacity="0.55"><circle cx="165" cy="130" r="4"/><circle cx="190" cy="115" r="3"/><circle cx="220" cy="128" r="4"/><circle cx="240" cy="150" r="3"/><circle cx="175" cy="160" r="3"/><circle cx="215" cy="175" r="4"/><circle cx="150" cy="170" r="3"/><circle cx="250" cy="185" r="3"/></g>`,
-  latte: `<defs><radialGradient id="g-latte-bg" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#EAD3A6"/><stop offset="100%" stop-color="#C99A5E"/></radialGradient></defs><rect width="400" height="300" fill="url(#g-latte-bg)"/><ellipse cx="200" cy="160" rx="115" ry="98" fill="#FFFFFF"/><ellipse cx="200" cy="158" rx="95" ry="80" fill="#B9793E"/><path d="M200 120 C 175 105, 150 130, 175 155 C 190 168, 200 180, 200 180 C 200 180, 210 168, 225 155 C 250 130, 225 105, 200 120 Z" fill="#F3E6D0"/>`,
-  coldbrew: `<defs><linearGradient id="g-cold-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D9C6AE"/><stop offset="100%" stop-color="#B79A78"/></linearGradient><linearGradient id="g-cold-liquid" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7A4A28"/><stop offset="100%" stop-color="#41260F"/></linearGradient></defs><rect width="400" height="300" fill="url(#g-cold-bg)"/><rect x="145" y="80" width="110" height="170" rx="10" fill="#FFFFFF" opacity="0.5"/><rect x="155" y="120" width="90" height="122" rx="6" fill="url(#g-cold-liquid)"/><g fill="#EAF3F1" opacity="0.85"><rect x="168" y="130" width="22" height="22" rx="4"/><rect x="200" y="150" width="24" height="24" rx="4"/><rect x="175" y="180" width="20" height="20" rx="4"/></g>`,
-  espresso: `<defs><radialGradient id="g-esp-bg" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#3B322B"/><stop offset="100%" stop-color="#181310"/></radialGradient><radialGradient id="g-esp-liquid" cx="45%" cy="40%" r="60%"><stop offset="0%" stop-color="#6E4224"/><stop offset="100%" stop-color="#2B1509"/></radialGradient></defs><rect width="400" height="300" fill="url(#g-esp-bg)"/><ellipse cx="200" cy="170" rx="78" ry="66" fill="#F4EFE7"/><ellipse cx="200" cy="168" rx="58" ry="48" fill="url(#g-esp-liquid)"/><path d="M270 150 q35 5 35 35 q0 30 -35 30" stroke="#F4EFE7" stroke-width="10" fill="none"/>`,
-  matcha: `<defs><radialGradient id="g-matcha-bg" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#CFE0B8"/><stop offset="100%" stop-color="#8FAE6E"/></radialGradient><radialGradient id="g-matcha-liquid" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#8CAE55"/><stop offset="100%" stop-color="#556B31"/></radialGradient></defs><rect width="400" height="300" fill="url(#g-matcha-bg)"/><ellipse cx="200" cy="165" rx="118" ry="90" fill="#FFFFFF"/><ellipse cx="200" cy="163" rx="96" ry="72" fill="url(#g-matcha-liquid)"/><g stroke="#3E5024" stroke-width="3" opacity="0.5"><line x1="160" y1="130" x2="160" y2="190"/><line x1="180" y1="122" x2="180" y2="196"/><line x1="200" y1="118" x2="200" y2="198"/><line x1="220" y1="122" x2="220" y2="196"/><line x1="240" y1="130" x2="240" y2="190"/></g>`,
-  chai: `<defs><radialGradient id="g-chai-bg" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#EBC79A"/><stop offset="100%" stop-color="#C98A4B"/></radialGradient><radialGradient id="g-chai-liquid" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#B97B3E"/><stop offset="100%" stop-color="#7A4A20"/></radialGradient></defs><rect width="400" height="300" fill="url(#g-chai-bg)"/><ellipse cx="200" cy="160" rx="112" ry="94" fill="#FFFFFF"/><ellipse cx="200" cy="158" rx="90" ry="76" fill="url(#g-chai-liquid)"/><g fill="#5A3A18" opacity="0.6"><circle cx="175" cy="135" r="3.5"/><circle cx="200" cy="122" r="3"/><circle cx="225" cy="138" r="3.5"/><circle cx="185" cy="165" r="3"/><circle cx="215" cy="170" r="3.5"/></g>`,
-  tea: `<defs><radialGradient id="g-tea-bg" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#E7D6AE"/><stop offset="100%" stop-color="#C9A868"/></radialGradient><radialGradient id="g-tea-liquid" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#C68A3D"/><stop offset="100%" stop-color="#8A5A1E"/></radialGradient></defs><rect width="400" height="300" fill="url(#g-tea-bg)"/><ellipse cx="200" cy="165" rx="118" ry="92" fill="#FFFFFF"/><ellipse cx="200" cy="163" rx="96" ry="72" fill="url(#g-tea-liquid)"/><path d="M170 150 q30 -18 60 0" stroke="#6B4415" stroke-width="3" fill="none" opacity="0.5"/>`,
-  croissant: `<defs><radialGradient id="g-croi-bg" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#F3E1BB"/><stop offset="100%" stop-color="#E1B978"/></radialGradient><linearGradient id="g-croi-body" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E8B85C"/><stop offset="100%" stop-color="#B5793A"/></linearGradient></defs><rect width="400" height="300" fill="url(#g-croi-bg)"/><path d="M90 200 C 130 90, 270 90, 310 200 C 250 150, 210 150, 200 190 C 190 150, 150 150, 90 200 Z" fill="url(#g-croi-body)"/><g stroke="#8A5A2B" stroke-width="3" opacity="0.55" fill="none"><path d="M150 165 q10 -14 20 0"/><path d="M190 150 q10 -14 20 0"/><path d="M230 165 q10 -14 20 0"/></g>`,
-  cinnamonroll: `<defs><radialGradient id="g-cinn-bg" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#F1E0BC"/><stop offset="100%" stop-color="#D9A968"/></radialGradient></defs><rect width="400" height="300" fill="url(#g-cinn-bg)"/><circle cx="200" cy="165" r="92" fill="#C4813F"/><circle cx="200" cy="165" r="92" fill="none" stroke="#8A5A2B" stroke-width="4"/><path d="M200 100 a65 65 0 0 1 65 65 a42 42 0 0 1 -42 42 a24 24 0 0 1 -24 -24" fill="none" stroke="#F4EFE7" stroke-width="7" stroke-linecap="round"/><path d="M150 120 q60 -20 110 15" stroke="#FBF3E4" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.85"/>`,
-  muffin: `<defs><radialGradient id="g-muff-bg" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#F1E0BC"/><stop offset="100%" stop-color="#D9AF74"/></radialGradient><linearGradient id="g-muff-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C08A44"/><stop offset="100%" stop-color="#96652A"/></linearGradient></defs><rect width="400" height="300" fill="url(#g-muff-bg)"/><path d="M120 165 C 120 120, 280 120, 280 165 Z" fill="url(#g-muff-top)"/><path d="M110 165 L 130 235 A 10 10 0 0 0 140 244 L 260 244 A 10 10 0 0 0 270 235 L 290 165 Z" fill="#F4EFE7" stroke="#C9A868" stroke-width="3"/><g stroke="#C9A868" stroke-width="2" opacity="0.7"><line x1="130" y1="170" x2="126" y2="240"/><line x1="160" y1="168" x2="158" y2="242"/><line x1="200" y1="167" x2="200" y2="244"/><line x1="240" y1="168" x2="242" y2="242"/><line x1="270" y1="170" x2="274" y2="240"/></g><g fill="#3E4E7A"><circle cx="165" cy="140" r="6"/><circle cx="200" cy="128" r="6"/><circle cx="235" cy="142" r="6"/></g>`,
-  bagel: `<defs><radialGradient id="g-bagel-bg" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#F1E0BC"/><stop offset="100%" stop-color="#DCAF6C"/></radialGradient><radialGradient id="g-bagel-ring" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#D9A24B"/><stop offset="100%" stop-color="#96632A"/></radialGradient></defs><rect width="400" height="300" fill="url(#g-bagel-bg)"/><circle cx="200" cy="165" r="98" fill="url(#g-bagel-ring)"/><circle cx="200" cy="165" r="34" fill="#F1E0BC"/><g fill="#F4EFE7" opacity="0.9"><ellipse cx="165" cy="120" rx="4" ry="2.5" transform="rotate(20 165 120)"/><ellipse cx="200" cy="105" rx="4" ry="2.5" transform="rotate(-10 200 105)"/><ellipse cx="235" cy="122" rx="4" ry="2.5" transform="rotate(30 235 122)"/><ellipse cx="255" cy="160" rx="4" ry="2.5" transform="rotate(60 255 160)"/><ellipse cx="150" cy="200" rx="4" ry="2.5" transform="rotate(-30 150 200)"/></g>`,
-  avocadotoast: `<defs><radialGradient id="g-avo-bg" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#EFE2C0"/><stop offset="100%" stop-color="#D3B77E"/></radialGradient><linearGradient id="g-avo-bread" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D9A85C"/><stop offset="100%" stop-color="#A9762F"/></linearGradient><radialGradient id="g-avo-green" cx="45%" cy="35%" r="70%"><stop offset="0%" stop-color="#A9C97C"/><stop offset="100%" stop-color="#5F7F3E"/></radialGradient></defs><rect width="400" height="300" fill="url(#g-avo-bg)"/><rect x="95" y="150" width="210" height="90" rx="10" fill="url(#g-avo-bread)"/><ellipse cx="200" cy="150" rx="105" ry="42" fill="url(#g-avo-green)"/><circle cx="185" cy="140" r="5" fill="#5C2E17"/><g fill="#B4453A" opacity="0.85"><circle cx="160" cy="150" r="3"/><circle cx="220" cy="145" r="3"/><circle cx="240" cy="160" r="3"/><circle cx="180" cy="165" r="3"/></g>`,
-  sandwich: `<defs><radialGradient id="g-sand-bg" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#F0DFB9"/><stop offset="100%" stop-color="#D2AC6C"/></radialGradient><linearGradient id="g-sand-bread" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E4B76B"/><stop offset="100%" stop-color="#B5813C"/></linearGradient></defs><rect width="400" height="300" fill="url(#g-sand-bg)"/><path d="M120 230 L 200 100 L 280 230 Z" fill="url(#g-sand-bread)" stroke="#8A5A2B" stroke-width="3" stroke-linejoin="round"/><rect x="128" y="185" width="144" height="14" fill="#E8D24A"/><rect x="136" y="165" width="128" height="12" fill="#5C7A3E"/><rect x="145" y="148" width="110" height="10" fill="#B4453A"/>`,
-  oats: `<defs><radialGradient id="g-oats-bg" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#EFE2C0"/><stop offset="100%" stop-color="#D3B77E"/></radialGradient><radialGradient id="g-oats-body" cx="45%" cy="35%" r="65%"><stop offset="0%" stop-color="#EDE0C4"/><stop offset="100%" stop-color="#C7A96E"/></radialGradient></defs><rect width="400" height="300" fill="url(#g-oats-bg)"/><ellipse cx="200" cy="165" rx="118" ry="92" fill="#FFFFFF"/><ellipse cx="200" cy="163" rx="96" ry="72" fill="url(#g-oats-body)"/><g fill="#B4453A"><circle cx="175" cy="150" r="7"/><circle cx="210" cy="140" r="7"/><circle cx="235" cy="165" r="7"/></g><g stroke="#B5934F" stroke-width="2" opacity="0.6"><path d="M150 175 q20 -10 40 0"/><path d="M200 180 q20 -10 40 0"/></g>`
-};
-
-function iconSVG(type){
-  const inner = ICONS[type] || ICONS.mug;
-  return `<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
-}
-
-let cart = {};
-let orderCounter = 100;
-let activeTab = 'all';
-
-const menuEl = document.getElementById('menu');
-const cartLinesEl = document.getElementById('cartLines');
-const emptyNoteEl = document.getElementById('emptyNote');
-const totalsBlockEl = document.getElementById('totalsBlock');
-const orderFormEl = document.getElementById('orderForm');
-const confirmationEl = document.getElementById('confirmation');
-const toggleCountEl = document.getElementById('toggleCount');
-const toggleCount2El = document.getElementById('toggleCount2');
-const cartPanel = document.getElementById('cartPanel');
-const backdrop = document.getElementById('backdrop');
-const placeOrderBtn = document.getElementById('placeOrderBtn');
-
-function money(n){ return '₱' + n.toFixed(2); }
-
-function itemVisible(item){
-  if(activeTab === 'all') return true;
-  return item.tags.includes(activeTab);
-}
-
-function renderMenu(){
-  menuEl.innerHTML = '';
-  MENU.forEach(section => {
-    const visibleItems = section.items.filter(itemVisible);
-    if(visibleItems.length === 0) return;
-    const catDiv = document.createElement('div');
-    catDiv.className = 'category';
-    catDiv.innerHTML = `
-      <div class="category-head">
-        <h2>${section.category}</h2>
-        <span>${section.subtitle}</span>
-      </div>
-      <div class="card-grid" id="grid-${section.key}"></div>
-    `;
-    menuEl.appendChild(catDiv);
-    const grid = catDiv.querySelector('.card-grid');
-    visibleItems.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <div class="card-image">${iconSVG(item.icon)}</div>
-        <div class="card-body">
-          <div class="card-title-row">
-            <h3>${item.name}</h3>
-            <span class="card-price">${money(item.price)}</span>
+      <div class="story-grid">
+        <article class="story-item">
+          <img src="https://images.unsplash.com/photo-1512568400610-62da28bc8a13?q=80&w=800" alt="Overhead view of latte art in a bed of roasted coffee beans">
+          <div class="story-text">
+            <h3>Quiet Hour</h3>
+            <p class="story-sub">01. OAT MILK &amp; VANILLA BEAN LATTE — ₱160.00</p>
           </div>
-          <p class="card-desc">${item.desc}</p>
-          <div class="card-actions" id="right-${item.id}"></div>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-  });
-  MENU.forEach(section => section.items.forEach(renderItemControl));
-}
+        </article>
 
-function renderItemControl(item){
-  const slot = document.getElementById(`right-${item.id}`);
-  if(!slot) return;
-  const line = cart[item.id];
-  if(!line){
-    slot.innerHTML = `
-      <button class="add-btn" data-add="${item.id}">Add to Cart</button>
-      <button class="buy-btn" data-buy="${item.id}">Buy Now</button>
-    `;
-  } else {
-    slot.innerHTML = `
-      <div class="qty-controls">
-        <button data-dec="${item.id}" aria-label="Decrease quantity">–</button>
-        <span>${line.qty}</span>
-        <button data-inc="${item.id}" aria-label="Increase quantity">+</button>
+        <article class="story-item">
+          <img src="https://images.unsplash.com/photo-1633161835691-fb4f5dfd0d46?q=80&w=800" alt="A cup of dark roast coffee on a wooden table with nothing else in frame">
+          <div class="story-text">
+            <h3>Ember Roast</h3>
+            <p class="story-sub">02. SMOKED DARK ROAST — ₱150.50</p>
+          </div>
+        </article>
+
+        <article class="story-item">
+          <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=800" alt="Overhead view of iced coffee in a clear glass">
+          <div class="story-text">
+            <h3>Cold Comfort</h3>
+            <p class="story-sub">03. ICED CARAMEL MOCHA — ₱140.00</p>
+          </div>
+        </article>
       </div>
-    `;
-  }
-}
+    </div>
+  </section>
 
-function findItem(id){
-  for(const section of MENU){
-    const found = section.items.find(i => i.id === id);
-    if(found) return found;
-  }
-}
-
-function addItem(id){
-  const item = findItem(id);
-  if(!cart[id]) cart[id] = { item, qty: 0 };
-  cart[id].qty += 1;
-  onCartChange();
-}
-
-function decItem(id){
-  if(!cart[id]) return;
-  cart[id].qty -= 1;
-  if(cart[id].qty <= 0) delete cart[id];
-  onCartChange();
-}
-
-function removeItem(id){
-  delete cart[id];
-  onCartChange();
-}
-
-function onCartChange(){
-  renderCart();
-  MENU.forEach(section => section.items.forEach(renderItemControl));
-}
-
-function openCartMobile(){
-  cartPanel.classList.add('open');
-  backdrop.classList.add('show');
-}
-
-function renderCart(){
-  const ids = Object.keys(cart);
-  const totalQty = ids.reduce((sum,id) => sum + cart[id].qty, 0);
-  toggleCountEl.textContent = totalQty;
-  toggleCount2El.textContent = totalQty;
-
-  cartLinesEl.innerHTML = '';
-  if(ids.length === 0){
-    emptyNoteEl.style.display = 'block';
-    totalsBlockEl.style.display = 'none';
-    placeOrderBtn.disabled = true;
-    return;
-  }
-  emptyNoteEl.style.display = 'none';
-  totalsBlockEl.style.display = 'block';
-  placeOrderBtn.disabled = false;
-
-  let subtotal = 0;
-  ids.forEach(id => {
-    const { item, qty } = cart[id];
-    const lineTotal = item.price * qty;
-    subtotal += lineTotal;
-    const row = document.createElement('div');
-    row.className = 'cart-line';
-    row.innerHTML = `
-      <div>
-        <div class="name">${item.name}</div>
-        <div class="meta">${qty} × ${money(item.price)}</div>
+  <!-- ABOUT / PROLOGUE -->
+  <section id="about" class="panel light-panel">
+    <div class="section-inner about-flex">
+      <div class="about-text">
+        <span class="eyebrow">The Prologue</span>
+        <h2>A small counter,<br>a slower kind of day.</h2>
+        <p>A Cup of Cafe started with one espresso machine, a secondhand table, and a stubborn belief that good coffee shouldn't be rushed. No corporate playbook just hours spent dialing in a grind until it tasted right.</p>
+        <p>We still source from small highland growers and roast in tiny batches, because we'd rather pour fewer cups well than a lot of them carelessly.</p>
       </div>
-      <div style="text-align:right;">
-        <div>${money(lineTotal)}</div>
-        <button class="remove-link" data-remove="${id}">remove</button>
+      <div class="about-image-wrap">
+        <img class="about-img" src="https://images.unsplash.com/photo-1511287830614-09802dd6cd79?q=80&w=1200" alt="Two stainless steel espresso machines on a cafe counter">
+        <span class="ornament-dot"></span>
       </div>
-    `;
-    cartLinesEl.appendChild(row);
-  });
+    </div>
+  </section>
 
-  const tax = subtotal * 0.05;
-  const total = subtotal + tax;
-  document.getElementById('subtotalVal').textContent = money(subtotal);
-  document.getElementById('taxVal').textContent = money(tax);
-  document.getElementById('totalVal').textContent = money(total);
-}
+  <!-- VISIT / EPILOGUE -->
+  <section id="visit" class="panel dark-panel epilogue">
+    <div class="section-inner epilogue-flex">
+      <div class="epilogue-left">
+        <span class="eyebrow light">The Epilogue</span>
+        <h2>Visit us before the<br>story ends.</h2>
+        <p class="address">Manila, Philippines</p>
+      </div>
+      <div class="epilogue-right">
+        <span class="follow-label">Follow the narrative</span>
+        <span class="author-credit">@ACUPOFCAFE</span>
+      </div>
+    </div>
+  </section>
 
-document.getElementById('tabs').addEventListener('click', e => {
-  if(!e.target.dataset.tab) return;
-  activeTab = e.target.dataset.tab;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === activeTab));
-  renderMenu();
-});
-
-menuEl.addEventListener('click', e => {
-  if(e.target.dataset.add) addItem(e.target.dataset.add);
-  if(e.target.dataset.buy){ addItem(e.target.dataset.buy); openCartMobile(); }
-  if(e.target.dataset.inc) addItem(e.target.dataset.inc);
-  if(e.target.dataset.dec) decItem(e.target.dataset.dec);
-});
-
-cartLinesEl.addEventListener('click', e => {
-  if(e.target.dataset.remove) removeItem(e.target.dataset.remove);
-});
-
-document.getElementById('orderForm').addEventListener('submit', e => {
-  e.preventDefault();
-  if(Object.keys(cart).length === 0) return;
-  const name = document.getElementById('custName').value.trim() || 'Guest Customer';
-  const phone = document.getElementById('custPhone').value.trim();
-  const errEl = document.getElementById('formError');
-
-  if(!phone){
-    errEl.textContent = 'Please enter a phone number for pickup alerts.';
-    errEl.style.display = 'block';
-    return;
-  }
-  errEl.style.display = 'none';
-
-  const orderType = document.querySelector('input[name="orderType"]:checked').value;
-  const notes = document.getElementById('notes').value.trim();
-  orderCounter += 1;
-
-  const itemSummary = Object.values(cart).map(l => `${l.qty}× ${l.item.name}`).join(', ');
-
-  document.getElementById('confNumber').textContent = `Order #${orderCounter} — ${orderType} for ${name}`;
-  document.getElementById('confDetails').textContent = itemSummary + (notes ? ` (Note: ${notes})` : '');
-
-  orderFormEl.style.display = 'none';
-  totalsBlockEl.style.display = 'none';
-  cartLinesEl.style.display = 'none';
-  document.querySelector('.cart-head').style.display = 'none';
-  confirmationEl.style.display = 'block';
-});
-
-document.getElementById('newOrderBtn').addEventListener('click', () => {
-  cart = {};
-  document.getElementById('custName').value = '';
-  document.getElementById('custPhone').value = '';
-  document.getElementById('notes').value = '';
-  confirmationEl.style.display = 'none';
-  orderFormEl.style.display = 'block';
-  cartLinesEl.style.display = 'block';
-  document.querySelector('.cart-head').style.display = 'flex';
-  onCartChange();
-  closeCartOnMobile();
-});
-
-const cartToggleBtn = document.getElementById('cartToggleBtn');
-cartToggleBtn.addEventListener('click', openCartMobile);
-backdrop.addEventListener('click', closeCartOnMobile);
-function closeCartOnMobile(){
-  cartPanel.classList.remove('open');
-  backdrop.classList.remove('show');
-}
-
-renderMenu();
-renderCart();
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
